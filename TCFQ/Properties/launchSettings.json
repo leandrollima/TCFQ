@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TCFQ.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "3"
+    }
+  }
+}
