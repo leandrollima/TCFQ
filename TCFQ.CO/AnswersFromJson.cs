@@ -14,7 +14,9 @@ namespace TCFQ.CO
 
         public IReadOnlyCollection<int> AvailableExams { get; private set; }
         public IReadOnlyCollection<char> Answers { get; private set; }
+
         public readonly int MaxExamId;
+        public readonly string? Url;
 
         public AnswersFromJson(int examId)
         {
@@ -31,9 +33,12 @@ namespace TCFQ.CO
                     if (jsonDocument.RootElement.TryGetProperty(LISTENING_COMPREHENSION, out meuObjetoElement))
                     {
                         answers = JsonSerializer.Deserialize<AnswerJsonModel[]>(meuObjetoElement.GetRawText())!;
-                        Answers = answers.Where(x => x.Id == examId).SelectMany(x => x.Answers).ToArray();
+                        
+                        var _answer = answers.Where(x => x.Id == examId).FirstOrDefault();
+                        Answers = _answer!.Answers;
                         MaxExamId = examId;
                         AvailableExams = answers.Select(x => x.Id).ToArray();
+                        Url = _answer.Url;
                     }
                     else
                     {

@@ -6,6 +6,8 @@ namespace TCFQ.WF.UserControls
 {
     public partial class UcQuestionSlider : UserControl
     {
+        public string? Url { get; private set; }
+
         ExamCO exam = default!;
         ushort currentQuestionNumber = default!;
         ushort maxQuestionNumber = default!;
@@ -38,6 +40,7 @@ namespace TCFQ.WF.UserControls
         public void StartQuestions(ushort examId)
         {
             exam = new ExamCO((ushort)examId);
+            Url = exam.Url;
             maxQuestionNumber = exam.Questions.Max(x => x.Number);
             LoadQuestionInformation(exam.Questions[0]);
 

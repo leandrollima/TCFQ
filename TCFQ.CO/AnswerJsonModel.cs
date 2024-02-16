@@ -4,5 +4,6 @@
     {
         public int Id {  get; set; }
         public char[] Answers { get; set; } = default!;
+        public string? Url { get; set; }
     }
 }

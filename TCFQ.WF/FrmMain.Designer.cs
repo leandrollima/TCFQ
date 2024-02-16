@@ -43,6 +43,7 @@
             btnTestAnswer = new Button();
             btnResult = new Button();
             ucQuestionSlider1 = new UserControls.UcQuestionSlider();
+            linkUrl = new LinkLabel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -126,7 +127,7 @@
             panel2.Controls.Add(btnTestAnswer);
             panel2.Controls.Add(btnResult);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 470);
+            panel2.Location = new Point(0, 505);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
             panel2.Size = new Size(243, 109);
@@ -198,12 +199,24 @@
             ucQuestionSlider1.ExamFinished += ucQuestionSlider1_ExamFinished;
             ucQuestionSlider1.ChangeQuestion += ucQuestionSlider1_ChangeQuestion;
             // 
+            // linkUrl
+            // 
+            linkUrl.Dock = DockStyle.Bottom;
+            linkUrl.Location = new Point(0, 470);
+            linkUrl.Name = "linkUrl";
+            linkUrl.Padding = new Padding(10);
+            linkUrl.Size = new Size(243, 35);
+            linkUrl.TabIndex = 3;
+            linkUrl.TabStop = true;
+            linkUrl.Text = "URL";
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(243, 579);
+            ClientSize = new Size(243, 614);
             Controls.Add(ucQuestionSlider1);
+            Controls.Add(linkUrl);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -236,5 +249,6 @@
         private ComboBox cmbExams;
         private Button btnCancel;
         private Button btnResultWithHighlight;
+        private LinkLabel linkUrl;
     }
 }

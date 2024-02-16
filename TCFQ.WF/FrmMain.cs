@@ -10,6 +10,7 @@ namespace TCFQ.WF
         const string ANONYMOUS_USER = "Anonimo";
         const string FINISH_EXAM_TO_SEE_RESULT_WARNING = "Finalize o exame para ver o resultado";
         const string LOAD_EXAM_ERROR = "Erro ao carregar o Exame número {0}, é possível que ele não tenha sido fornecido para esta versão do sistema, tente outro exame: {1}{2}";
+        const string FAIL_EXECUTE_URL = "Falha ao tentar abrir Url";
 
         bool started = false;
         bool _databaseConnectionSuccessfull;
@@ -34,6 +35,7 @@ namespace TCFQ.WF
             btnCancel.Location = btnLoad.Location;
 
             btnOldResults.Enabled = false;
+            linkUrl.Visible = false;
         }
 
         private void CancelExam()
@@ -45,6 +47,8 @@ namespace TCFQ.WF
             ucQuestionSlider1.CancelExam();
             ucQuestionSlider1.ParcialResultVisible = true;
             btnCancel.Visible = false;
+            linkUrl.Visible = false;
+            linkUrl.LinkClicked -= new LinkLabelLinkClickedEventHandler(linkUrl_LinkClicked!);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -58,6 +62,10 @@ namespace TCFQ.WF
                 btnLoad.Enabled = false;
                 txtUserName.Text = txtUserName.Text.Length == 0 ? ANONYMOUS_USER : txtUserName.Text;
                 btnCancel.Visible = true;
+
+                linkUrl.Text = "Video do exame";
+                linkUrl.Visible = true;
+                linkUrl.LinkClicked += new LinkLabelLinkClickedEventHandler(linkUrl_LinkClicked!);
 
                 started = true;
             }
@@ -144,6 +152,27 @@ namespace TCFQ.WF
             
             _frmExamAnswerKeyHighlightAnswers.Show();
             _frmExamAnswerKeyHighlightAnswers.FormClosed += (s, args) => _frmExamAnswerKeyHighlightAnswers = null;
+        }
+
+        private void linkUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ucQuestionSlider1.Url))
+                {
+                    this.linkUrl.LinkVisited = true;
+
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = ucQuestionSlider1.Url,
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(FAIL_EXECUTE_URL, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

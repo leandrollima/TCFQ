@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace TCFQ.CO
 {
@@ -16,6 +17,8 @@ namespace TCFQ.CO
         readonly char[] _acceptableAnswers;
         readonly string[] _levels;
 
+        public readonly string? Url;
+
         public IReadOnlyCollection<char> AcceptableAnswers { get; private set; }
 
         public QuestionCO[] Questions { get; private set; } = default!;
@@ -28,6 +31,7 @@ namespace TCFQ.CO
         {
             Id = id;
             _answersFromJson = new AnswersFromJson(id);
+            Url = _answersFromJson.Url;
 
             var hashAnswers = new HashSet<char>(_answersFromJson.Answers);
             var lstAnswers = hashAnswers.ToList();
