@@ -64,7 +64,7 @@ namespace TCFQ.WF
                 btnCancel.Visible = true;
 
                 linkUrl.Text = "Video do exame";
-                linkUrl.Visible = true;
+                linkUrl.Visible = !string.IsNullOrWhiteSpace(ucQuestionSlider1.Url);
                 linkUrl.LinkClicked += new LinkLabelLinkClickedEventHandler(linkUrl_LinkClicked!);
 
                 started = true;

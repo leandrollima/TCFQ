@@ -35,3 +35,10 @@ For create database:
       "Answers": [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
       "Url":  ""
     }
+
+
+
+	
+	git update-index --assume-unchanged TCFQ.CO\answers.json
+	
+	git checkout -- answers.json
